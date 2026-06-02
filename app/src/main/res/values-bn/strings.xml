@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">মাই রিডার</string>
+    <string name="app_tagline">আপনার ডিজিটাল লাইব্রেরি</string>
+
+    <!-- Auth -->
+    <string name="sign_in">সাইন ইন</string>
+    <string name="sign_up">নিবন্ধন করুন</string>
+    <string name="sign_out">সাইন আউট</string>
+    <string name="email_address">ইমেইল ঠিকানা</string>
+    <string name="password">পাসওয়ার্ড</string>
+    <string name="forgot_password">পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="continue_as_guest">অতিথি হিসেবে চালিয়ে যান</string>
+    <string name="google_sign_in">গুগল দিয়ে প্রবেশ করুন</string>
+    <string name="no_account">অ্যাকাউন্ট নেই?</string>
+    <string name="have_account">ইতিমধ্যে অ্যাকাউন্ট আছে?</string>
+
+    <!-- Navigation -->
+    <string name="home">হোম</string>
+    <string name="library">লাইব্রেরি</string>
+    <string name="profile">প্রোফাইল</string>
+    <string name="search">অনুসন্ধান</string>
+
+    <!-- Book -->
+    <string name="read_now">এখনই পড়ুন</string>
+    <string name="download">ডাউনলোড</string>
+    <string name="add_to_favorites">প্রিয়তে যোগ করুন</string>
+    <string name="remove_favorite">প্রিয় থেকে সরান</string>
+    <string name="share">শেয়ার করুন</string>
+    <string name="report_broken">সমস্যা রিপোর্ট করুন</string>
+    <string name="pages">পৃষ্ঠা</string>
+
+    <!-- Reader -->
+    <string name="add_bookmark">বুকমার্ক যোগ করুন</string>
+    <string name="bookmarks">বুকমার্ক</string>
+    <string name="font_settings">ফন্ট সেটিংস</string>
+    <string name="light_mode">আলো</string>
+    <string name="dark_mode">অন্ধকার</string>
+    <string name="sepia_mode">সেপিয়া</string>
+
+    <!-- Library -->
+    <string name="favorites">প্রিয়</string>
+    <string name="downloads">ডাউনলোড</string>
+    <string name="recently_read">সম্প্রতি পড়া</string>
+    <string name="reading_history">পাঠ ইতিহাস</string>
+
+    <!-- Profile -->
+    <string name="reading_stats">পাঠ পরিসংখ্যান</string>
+    <string name="achievements">অর্জনসমূহ</string>
+    <string name="settings">সেটিংস</string>
+    <string name="books_read">পড়া বই</string>
+    <string name="hours_read">পড়ার সময়</string>
+    <string name="day_streak">দিনের ধারা</string>
+
+    <!-- Errors -->
+    <string name="error_network">ইন্টারনেট সংযোগ নেই। আবার চেষ্টা করুন।</string>
+    <string name="error_generic">কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।</string>
+    <string name="error_email_invalid">একটি বৈধ ইমেইল ঠিকানা লিখুন।</string>
+    <string name="error_password_short">পাসওয়ার্ড কমপক্ষে ৮ অক্ষর হতে হবে।</string>
+</resources>

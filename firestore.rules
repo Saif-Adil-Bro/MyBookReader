@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ──────────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    function isAdmin() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN';
+    }
+    function isValidBook() {
+      let b = request.resource.data;
+      return b.keys().hasAll(['title', 'author', 'category', 'fileFormat'])
+        && b.title is string && b.title.size() > 0
+        && b.author is string && b.author.size() > 0;
+    }
+
+    // ── Books (public read, admin write) ──────────────────────────────────
+    match /books/{bookId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+
+      // Ratings sub-collection (any authenticated user can rate)
+      match /ratings/{userId} {
+        allow read: if true;
+        allow write: if isSignedIn() && isOwner(userId);
+      }
+    }
+
+    // ── Users ─────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      allow read: if isSignedIn() && (isOwner(userId) || isAdmin());
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId)
+        && !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['role', 'membershipType']);  // Can't self-promote
+      allow delete: if isAdmin();
+
+      // Favorites sub-collection
+      match /favorites/{bookId} {
+        allow read, write: if isSignedIn() && isOwner(userId);
+      }
+
+      // Reading progress
+      match /progress/{bookId} {
+        allow read, write: if isSignedIn() && isOwner(userId);
+      }
+
+      // Bookmarks
+      match /bookmarks/{bookmarkId} {
+        allow read, write: if isSignedIn() && isOwner(userId);
+      }
+    }
+
+    // ── Book requests (authenticated users can submit) ────────────────────
+    match /book_requests/{requestId} {
+      allow read: if isSignedIn() && (
+        resource.data.userId == request.auth.uid || isAdmin()
+      );
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.bookTitle is string
+        && request.resource.data.bookTitle.size() > 0;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── Reports ───────────────────────────────────────────────────────────
+    match /reports/{reportId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // ── Admin notifications ───────────────────────────────────────────────
+    match /admin_notifications/{notifId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+  }
+}

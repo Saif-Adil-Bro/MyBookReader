@@ -1,0 +1,41 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return request.auth.token.role == 'ADMIN';
+    }
+    function isValidImage() {
+      return request.resource.contentType.matches('image/.*')
+        && request.resource.size < 5 * 1024 * 1024; // 5 MB
+    }
+    function isValidBookFile() {
+      return (request.resource.contentType == 'application/pdf'
+           || request.resource.contentType == 'application/epub+zip')
+        && request.resource.size < 100 * 1024 * 1024; // 100 MB
+    }
+
+    // ── Book covers (public read, admin upload) ───────────────────────────
+    match /covers/{fileName} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidImage();
+    }
+
+    // ── Book files (authenticated read, admin upload) ─────────────────────
+    match /books/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isValidBookFile();
+    }
+
+    // ── User avatars ──────────────────────────────────────────────────────
+    match /avatars/{userId} {
+      allow read: if true;
+      allow write: if isSignedIn()
+        && request.auth.uid == userId
+        && isValidImage();
+    }
+  }
+}
