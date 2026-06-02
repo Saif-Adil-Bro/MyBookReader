@@ -14,6 +14,7 @@
     <string name="google_sign_in">Continue with Google</string>
     <string name="no_account">Don\'t have an account?</string>
     <string name="have_account">Already have an account?</string>
+    <string name="default_web_client_id">243313498451-q5lsif028mp1g0f2lckn4btim2gfad3r.apps.googleusercontent.com</string>
 
     <!-- Navigation -->
     <string name="home">Home</string>

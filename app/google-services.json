@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "243313498451",
+    "project_id": "mybookreader-e8270",
+    "storage_bucket": "mybookreader-e8270.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243313498451:android:07fa89fc54a85b8ad4e9a6",
+        "android_client_info": {
+          "package_name": "com.myreader.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl0LCOoXlYJ5fIIGd4mRBmiI4Lh3xvsV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
